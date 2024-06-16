@@ -2,10 +2,11 @@
 	import Grid from './Grid.svelte';
 	import { levels } from './levels';
 	import type { Level } from './levels';
-
+	import { shuffle } from './utils';
+	import Found from './Found.svelte';
 	const level = levels[0];
 
-	let size: number = level.size;
+	// let size: number = level.size;
 	let grid: string[] = createGrid(level);
 	let found: string[] = [];
 
@@ -20,16 +21,24 @@
 			pairs.push(emoji);
 		}
 		pairs.push(...pairs);
-		return pairs;
+		return shuffle(pairs);
 	}
 </script>
 
 <div class="game">
 	<div class="info"></div>
 	<div class="grid-container">
-		<Grid {grid} />
+		<Grid
+			{grid}
+			on:found={(e) => {
+				found = [...found, e.detail.emoji];
+			}}
+			{found}
+		/>
 	</div>
-	<div class="info"></div>
+	<div class="info">
+		<Found {found} />
+	</div>
 </div>
 
 <style>
