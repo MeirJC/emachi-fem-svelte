@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getTwemojiUrl } from './utils';
+	import { send } from './transitions';
 	export let emoji: string = '';
 	export let selected: boolean;
 	export let found: boolean;
@@ -9,7 +10,7 @@
 	<button on:click />
 	<div class="background"></div>
 	{#if !found}
-		<img src={getTwemojiUrl(emoji)} alt={emoji} />
+		<img src={getTwemojiUrl(emoji)} alt={emoji} out:send={{ key: emoji }} />
 		<!-- <span> {emoji}</span> -->
 	{/if}
 </div>

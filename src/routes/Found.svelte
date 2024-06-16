@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { getTwemojiUrl } from './utils';
+	import { receive } from './transitions';
 
 	export let found: string[] = [];
 </script>
 
 <div class="found">
 	{#each found as emoji (emoji)}
-		<img src={getTwemojiUrl(emoji)} alt={emoji} />
+		<img src={getTwemojiUrl(emoji)} alt={emoji} in:receive={{ key: emoji }} />
 	{/each}
 </div>
 
