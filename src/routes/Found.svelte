@@ -1,10 +1,12 @@
 <script lang="ts">
+	import { getTwemojiUrl } from './utils';
+
 	export let found: string[] = [];
 </script>
 
 <div class="found">
 	{#each found as emoji (emoji)}
-		<span>{emoji}</span>
+		<img src={getTwemojiUrl(emoji)} alt={emoji} />
 	{/each}
 </div>
 
@@ -17,8 +19,9 @@
 		gap: 2em;
 		height: 100%;
 	}
-	span {
-		font-size: 5em;
+	img {
+		width: 6em;
+		height: 6em;
 		pointer-events: none;
 	}
 </style>
