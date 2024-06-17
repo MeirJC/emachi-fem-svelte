@@ -25,4 +25,4 @@ This is a memory game where you have to match the emojis. The game has 3 levels 
 
 ## Preview
 
-![Emachi - Emoji Memory Game](/preview.gif)
+<img src="./preview.gif" alt="Emachi - Emoji Memory Game" style="width: 90%; max-width: 500px; margin-inline: auto; display: block;" />
