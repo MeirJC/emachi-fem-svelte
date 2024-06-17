@@ -1,63 +1,85 @@
 <script lang="ts">
 	import { getTwemojiUrl } from './utils';
 	import { send } from './transitions';
-	export let emoji: string = '';
+
 	export let selected: boolean;
 	export let found: boolean;
+	export let group: 'a' | 'b';
+	export let value: string;
 </script>
 
 <div class="square" class:flipped={selected || found}>
-	<button on:click />
-	<div class="background"></div>
+	<button on:click disabled={selected || found} />
+
+	<div class="background" class:found />
 	{#if !found}
-		<img src={getTwemojiUrl(emoji)} alt={emoji} out:send={{ key: emoji }} />
-		<!-- <span> {emoji}</span> -->
+		<img alt={value} src={getTwemojiUrl(value)} out:send={{ key: `${value}:${group}` }} />
 	{/if}
 </div>
 
 <style>
 	.square {
 		display: flex;
-		justify-content: center;
+		width: 100%;
+		height: 100%;
 		align-items: center;
+		justify-content: center;
+		transition: filter 0.2s;
 		transform-style: preserve-3d;
+		transform: rotateY(180deg);
 		transition: transform 0.4s;
-
-		border-radius: 1em;
+		user-select: none;
 	}
 
-	.flipped {
-		background-color: #eee;
-		transform: rotateY(180deg);
+	.square * {
+		backface-visibility: hidden;
 	}
 
 	button {
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		backface-visibility: hidden;
-		background: #eee;
-		border: 0;
+		border: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: var(--bg-2);
 		border-radius: 1em;
-		font-size: inherit;
+		transform: rotateY(180deg);
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	button:disabled {
+		color: inherit;
+	}
+
+	.flipped {
+		transform: rotateY(0);
+		z-index: 2;
 	}
 
 	.background {
-		background: white;
-		transform: rotateY(180deg);
-		backface-visibility: hidden;
+		position: absolute;
 		width: 100%;
 		height: 100%;
-		position: absolute;
+		background: var(--bg-1);
+		border: 2px solid var(--accent);
 		border-radius: 1em;
-		border: 0.4em solid #eee;
-	}
-	img {
-		width: 8em;
-		height: 8em;
+		transition: border 0.2s;
 		pointer-events: none;
-		transform: rotateY(180deg);
-		backface-visibility: hidden;
-		border-radius: 1em;
+	}
+
+	.background.found {
+		border: 2px solid var(--bg-2);
+	}
+
+	img {
+		display: block;
+		font-size: 6em;
+		width: 1em;
+		height: 1em;
+		line-height: 1;
+		z-index: 2;
+		pointer-events: none;
 	}
 </style>
